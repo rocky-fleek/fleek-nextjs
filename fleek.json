@@ -1,0 +1,6 @@
+{
+  "id": "cldyd1dns0000l808yteosi73",
+  "name": "fleek-nextjs",
+  "distDir": "out",
+  "buildCommand": "npm run build"
+}
