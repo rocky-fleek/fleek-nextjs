@@ -1,38 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Fleek-next](public/coverImage.png)
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and adapted to be instantly deployed on [Fleek](https://fleek.xyz).
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+This project is ment to be for creating Static Sites since, at the moment, server side rendering and severless functions are not part of Fleek's solutions. Given the time if they become available this bootstrap will be updated.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Deploy with Fleek CLI
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+As mentioned above you can only deploy static sites to Fleek. We have modified `next.config.js` to make sure that the site is built as a static site. You can try by running
 
-## Learn More
+```
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+This will create a `out` folder with the static site. That is the folder that will be to deploy to Fleek.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To deploy this site to Fleek CLI you will first need to install the CLI from npm:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npm install @fleekxyz/cli
+```
 
-## Deploy on Vercel
+You need to have an account set up and you can do it by using
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+fleek login
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Once authenticated you can initialize the site
+
+```
+fleek sites init
+```
+
+This process will create a project or choose and existing one and require some information to build the site. 
+
+As a `dist directory` you need to set up `out` and as a `build command` you need to set up `npm run build`.
+
+Once the process is finished you should have a `fleek.json` file in the root of the project. This file contains the information to deploy the site to Fleek. 
+
+```json
+{
+  "id": "{your-site-id}",
+  "name": "fleek-nextjs",
+  "distDir": "out",
+  "buildCommand": "npm run build"
+}
+```
+
+Once this is set you can deploy your site by running
+
+```
+fleek sites deploy
+```
+
+Voialá! Your site is deployed to Fleek. To know more about the CLI you can check the [documentation](https://docs.fleek.xyz/).
+
